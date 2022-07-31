@@ -18,8 +18,18 @@
         "
       >
         <!-- Player 1 HP -->
-        <div style="position: relative; height: 30px; width: 100%">
-          <div style="background-color: yellow; height: 30px"></div>
+        <div
+          style="
+            display: flex;
+            justify-content: flex-end;
+            position: relative;
+            height: 30px;
+            width: 100%;
+          "
+        >
+          <div
+            style="background-color: yellow; height: 30px; width: 100%"
+          ></div>
           <div
             id="playerHP"
             style="
@@ -28,19 +38,25 @@
               top: 0;
               bottom: 0;
               right: 0;
-              left: 0;
+              width: 100%;
             "
           ></div>
         </div>
         <!-- Timer -->
         <div
+          id="timer"
           style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background-color: red;
             width: 100px;
             height: 100px;
             flex-shrink: 0;
           "
-        ></div>
+        >
+          10
+        </div>
         <!-- Player 2 HP -->
         <div style="position: relative; height: 30px; width: 100%">
           <div style="background-color: yellow; height: 30px"></div>
@@ -56,6 +72,25 @@
             "
           ></div>
         </div>
+      </div>
+
+      <!-- GAME NOTIFS -->
+      <!-- TIE -->
+      <div
+        id="displayText"
+        style="
+          /* display: flex; */
+          align-items: center;
+          position: absolute;
+          color: white;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          left: 0;
+          display: none;
+        "
+      >
+        Tie
       </div>
       <canvas></canvas>
     </div>
