@@ -27,6 +27,7 @@ class Sprite {
     this.lastKey;
     this.color = color;
     this.isAttacking;
+    this.health = 100;
     //for attacks
     this.hitBox = {
       position: {
@@ -182,7 +183,8 @@ function animate() {
     player.isAttacking
   ) {
     player.isAttacking = false;
-    console.log("player1 attacked");
+    player2.health -= 20;
+    document.querySelector("#player2HP").style.width = player2.health + "%";
   }
 
   // If player2 attacks and the attack collides with player1's hurtbox
@@ -192,10 +194,11 @@ function animate() {
       rect1: player2,
       rect2: player,
     }) &&
-    player.isAttacking
+    player2.isAttacking
   ) {
-    player.isAttacking = false;
-    console.log("player2 attacked");
+    player2.isAttacking = false;
+    player.health -= 20;
+    document.querySelector("#playerHP").style.width = player.health + "%";
   }
 }
 
@@ -232,7 +235,7 @@ window.addEventListener("keydown", (event) => {
       player2.lastKey = "ArrowUp";
       break;
     case "m":
-      player2.isAttacking = true;
+      player2.attack();
       break;
   }
 });

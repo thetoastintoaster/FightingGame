@@ -18,7 +18,20 @@
         "
       >
         <!-- Player 1 HP -->
-        <div style="background-color: yellow; height: 30px; width: 100%"></div>
+        <div style="position: relative; height: 30px; width: 100%">
+          <div style="background-color: yellow; height: 30px"></div>
+          <div
+            id="playerHP"
+            style="
+              position: absolute;
+              background: blue;
+              top: 0;
+              bottom: 0;
+              right: 0;
+              left: 0;
+            "
+          ></div>
+        </div>
         <!-- Timer -->
         <div
           style="
@@ -29,10 +42,20 @@
           "
         ></div>
         <!-- Player 2 HP -->
-        <div
-          id="player2HP"
-          style="background-color: yellow; height: 30px; width: 100%"
-        ></div>
+        <div style="position: relative; height: 30px; width: 100%">
+          <div style="background-color: yellow; height: 30px"></div>
+          <div
+            id="player2HP"
+            style="
+              position: absolute;
+              background: blue;
+              top: 0;
+              bottom: 0;
+              right: 0;
+              left: 0;
+            "
+          ></div>
+        </div>
       </div>
       <canvas></canvas>
     </div>
