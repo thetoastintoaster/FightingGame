@@ -1,14 +1,38 @@
 <html>
-  <head></head>
+  <head>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
   <body>
-    <div style="position: relative">
-      <div style="position: absolute">
+    <div style="display: inline-block; position: relative">
+      <div
+        style="
+          position: absolute;
+          padding: 20px;
+          display: flex;
+          width: 100%;
+          align-items: center;
+        "
+      >
         <!-- Player 1 HP -->
-        <div style="background-color: yellow; height: 30px; width: 100px"></div>
+        <div style="background-color: yellow; height: 30px; width: 100%"></div>
         <!-- Timer -->
-        <div></div>
+        <div
+          style="
+            background-color: red;
+            width: 100px;
+            height: 100px;
+            flex-shrink: 0;
+          "
+        ></div>
         <!-- Player 2 HP -->
-        <div></div>
+        <div
+          id="player2HP"
+          style="background-color: yellow; height: 30px; width: 100%"
+        ></div>
       </div>
       <canvas></canvas>
     </div>
