@@ -18,75 +18,15 @@ context.fillRect(0, 0, canvas.width, canvas.height);
 
 const gravity = 0.5;
 
-class Sprite {
-  constructor({ position, velocity, color = "red", offset }) {
-    this.position = position;
-    this.velocity = velocity;
-    this.width = 50;
-    this.height = 150;
-    this.lastKey;
-    this.color = color;
-    this.isAttacking;
-    this.health = 100;
-    //for attacks
-    this.hitBox = {
-      position: {
-        x: this.position.x,
-        y: this.position.y,
-      },
-      offset: offset,
-      width: 100,
-      height: 50,
-    };
-  }
+const background = new Sprite({
+  position: {
+    x: 0,
+    y: 0,
+  },
+  imageSrc: "./assets/background.png",
+});
 
-  // This method is used to create the hurtbox at the players spawn position
-  draw() {
-    // context.fillStyle = "red";
-    context.fillStyle = this.color;
-    context.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-    // hitbox (for attacks)
-    if (this.isAttacking) {
-      context.fillStyle = "green";
-      context.fillRect(
-        this.hitBox.position.x,
-        this.hitBox.position.y,
-        this.hitBox.width,
-        this.hitBox.height
-      );
-    }
-  }
-
-  // this method is to update the player when movement buttons are pressed
-  update() {
-    this.draw();
-    this.hitBox.position.x = this.position.x + this.hitBox.offset.x;
-    this.hitBox.position.y = this.position.y;
-
-    this.position.x += this.velocity.x;
-
-    // This will apply gravity to the object for the duration of it being above the ground
-    // position.y will have [insert number] pixels added on to it for each frame that is looped over
-    this.position.y += this.velocity.y;
-
-    if (this.position.y + this.height + this.velocity.y >= canvas.height) {
-      this.velocity.y = 0;
-    } else {
-      this.velocity.y += gravity;
-    }
-  }
-
-  // this method is to allow player1 to attack at the moment
-  attack() {
-    this.isAttacking = true;
-    setTimeout(() => {
-      this.isAttacking = false;
-    }, 100);
-  }
-}
-
-const player = new Sprite({
+const player = new Fighter({
   position: {
     x: 0,
     y: 0,
@@ -101,7 +41,7 @@ const player = new Sprite({
   },
 });
 
-const player2 = new Sprite({
+const player2 = new Fighter({
   position: {
     x: 400,
     y: 100,
@@ -135,54 +75,13 @@ const keys = {
   },
 };
 
-// Collision Detection
-function hurtboxCollision({ rect1, rect2 }) {
-  if (
-    // X axis
-    rect1.hitBox.position.x + rect1.hitBox.width >= rect2.position.x &&
-    rect1.hitBox.position.x <= rect2.position.x + rect2.width &&
-    // y axis
-    rect1.hitBox.position.y + rect1.hitBox.height >= rect2.position.y &&
-    rect1.hitBox.position.y <= rect2.position.y + rect2.height
-  ) {
-    return true;
-  }
-}
-
-function determineWinner({ player, player2, timerID }) {
-  clearTimeout(timerID);
-  document.querySelector("#displayText").style.display = "flex";
-  if (player.health === player2.health) {
-    document.querySelector("#displayText").innerHTML = "Tie";
-  } else if (player.health > player2.health) {
-    document.querySelector("#displayText").innerHTML = "Player 1 Wins";
-  } else if (player2.health > player.health) {
-    document.querySelector("#displayText").innerHTML = "Player 2 Wins";
-  }
-}
-
-// This is for the timer.
-// If player1 has a higher HP, player1 wins and vice versa.
-// If the HP's of both players
-let timer = 10;
-let timerID;
-function decreaseTimer() {
-  timerID = setTimeout(decreaseTimer, 1000);
-  if (timer > 0) {
-    timer--;
-    document.querySelector("#timer").innerHTML = timer;
-  }
-  if (timer === 0) {
-    determineWinner({ player, player2, timerID });
-  }
-}
-
 decreaseTimer();
 
 function animate() {
   window.requestAnimationFrame(animate);
   context.fillStyle = "black";
   context.fillRect(0, 0, canvas.width, canvas.height);
+  background.update();
   player.update();
   player2.update();
 
