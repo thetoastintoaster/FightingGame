@@ -1,5 +1,11 @@
 class Sprite {
-  constructor({ position, imageSrc, scale = 1, framesMax = 1 }) {
+  constructor({
+    position,
+    imageSrc,
+    scale = 1,
+    framesMax = 1,
+    offset = { x: 0, y: 0 },
+  }) {
     this.position = position;
     this.width = 50;
     this.height = 150;
@@ -8,13 +14,16 @@ class Sprite {
     this.scale = scale;
     this.framesMax = framesMax;
     this.framesCurrent = 0;
+    this.framesElapsed = 0;
+    this.framesHold = 7;
+    this.offset = offset;
   }
 
   // This method is used to create the hurtbox at the players spawn position
   draw() {
     context.drawImage(
       this.image,
-      (this.this.image.width / this.framesMax) * this.framesCurrent,
+      (this.image.width / this.framesMax) * this.framesCurrent,
       0,
 
       //the framesMax variable to divide the sprite
@@ -25,32 +34,55 @@ class Sprite {
       this.image.height,
 
       // these are for the image position, height, and width
-      this.position.x,
-      this.position.y,
+      this.position.x - this.offset.x,
+      this.position.y - this.offset.y,
       (this.image.width / this.framesMax) * this.scale,
       this.image.height * this.scale
     );
   }
 
+  // This method is for animating the sprites
+  animateFrames() {
+    this.framesElapsed++;
+    if (this.framesElapsed % this.framesHold === 0) {
+      // the "-1" is there so that the background image doesn't
+      // flicker (it flickers because the crop is
+      // being moved by one frame. The issue here is
+      // that the background image only has one frame
+      // right now)
+      if (this.framesCurrent < this.framesMax - 1) {
+        this.framesCurrent++;
+      } else {
+        this.framesCurrent = 0;
+      }
+    }
+  }
   // this method is to update the player when movement buttons are pressed
   update() {
     this.draw();
-    // the "-1" is there so that the background image doesn't
-    // flicker (it flickers because the crop is
-    // being moved by one frame. The issue here is
-    // that the background image only has one frame
-    // right now)
-    if (this.framesCurrent < this.framesMax - 1) {
-      this.framesCurrent++;
-    } else {
-      this.framesCurrent;
-    }
+    this.animateFrames();
   }
 }
 
-class Fighter {
-  constructor({ position, velocity, color = "red", offset }) {
-    this.position = position;
+class Fighter extends Sprite {
+  constructor({
+    position,
+    velocity,
+    color = "red",
+    // arguments inherited from Sprite class below
+    imageSrc,
+    scale = 1,
+    framesMax = 1,
+    offset = { x: 0, y: 0 },
+  }) {
+    super({
+      position,
+      imageSrc,
+      scale,
+      framesMax,
+      offset,
+    });
+    // this.position = position;
     this.velocity = velocity;
     this.width = 50;
     this.height = 150;
@@ -58,6 +90,10 @@ class Fighter {
     this.color = color;
     this.isAttacking;
     this.health = 100;
+    this.framesCurrent = 0;
+    this.framesElapsed = 0;
+    this.framesHold = 7;
+
     //for attacks
     this.hitBox = {
       position: {
@@ -71,26 +107,27 @@ class Fighter {
   }
 
   // This method is used to create the hurtbox at the players spawn position
-  draw() {
-    // context.fillStyle = "red";
-    context.fillStyle = this.color;
-    context.fillRect(this.position.x, this.position.y, this.width, this.height);
+  // draw() {
+  //   // context.fillStyle = "red";
+  //   context.fillStyle = this.color;
+  //   context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
-    // hitbox (for attacks)
-    if (this.isAttacking) {
-      context.fillStyle = "green";
-      context.fillRect(
-        this.hitBox.position.x,
-        this.hitBox.position.y,
-        this.hitBox.width,
-        this.hitBox.height
-      );
-    }
-  }
+  //   // hitbox (for attacks)
+  //   if (this.isAttacking) {
+  //     context.fillStyle = "green";
+  //     context.fillRect(
+  //       this.hitBox.position.x,
+  //       this.hitBox.position.y,
+  //       this.hitBox.width,
+  //       this.hitBox.height
+  //     );
+  //   }
+  // }
 
   // this method is to update the player when movement buttons are pressed
   update() {
     this.draw();
+    this.animateFrames();
     this.hitBox.position.x = this.position.x + this.hitBox.offset.x;
     this.hitBox.position.y = this.position.y;
 
