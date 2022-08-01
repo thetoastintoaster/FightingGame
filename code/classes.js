@@ -1,20 +1,50 @@
 class Sprite {
-  constructor({ position, imageSrc }) {
+  constructor({ position, imageSrc, scale = 1, framesMax = 1 }) {
     this.position = position;
     this.width = 50;
     this.height = 150;
     this.image = new Image();
     this.image.src = imageSrc;
+    this.scale = scale;
+    this.framesMax = framesMax;
+    this.framesCurrent = 0;
   }
 
   // This method is used to create the hurtbox at the players spawn position
   draw() {
-    context.drawImage(this.image, this.position.x, this.position.y);
+    context.drawImage(
+      this.image,
+      (this.this.image.width / this.framesMax) * this.framesCurrent,
+      0,
+
+      //the framesMax variable to divide the sprite
+      // by how many frames are used for the sprite
+      // this is to prevent seeing each frame of the animation
+      // on the screen
+      this.image.width / this.framesMax,
+      this.image.height,
+
+      // these are for the image position, height, and width
+      this.position.x,
+      this.position.y,
+      (this.image.width / this.framesMax) * this.scale,
+      this.image.height * this.scale
+    );
   }
 
   // this method is to update the player when movement buttons are pressed
   update() {
     this.draw();
+    // the "-1" is there so that the background image doesn't
+    // flicker (it flickers because the crop is
+    // being moved by one frame. The issue here is
+    // that the background image only has one frame
+    // right now)
+    if (this.framesCurrent < this.framesMax - 1) {
+      this.framesCurrent++;
+    } else {
+      this.framesCurrent;
+    }
   }
 }
 
@@ -70,7 +100,7 @@ class Fighter {
     // position.y will have [insert number] pixels added on to it for each frame that is looped over
     this.position.y += this.velocity.y;
 
-    if (this.position.y + this.height + this.velocity.y >= canvas.height) {
+    if (this.position.y + this.height + this.velocity.y >= canvas.height - 85) {
       this.velocity.y = 0;
     } else {
       this.velocity.y += gravity;
