@@ -1,3 +1,5 @@
+// "use strict";
+
 // Collision Detection
 function hurtboxCollision({ rect1, rect2 }) {
   if (
@@ -36,6 +38,83 @@ function decreaseTimer() {
     document.querySelector("#timer").innerHTML = timer;
   }
   if (timer === 0) {
+    determineWinner({ player, player2, timerID });
+  }
+}
+
+function animate() {
+  window.requestAnimationFrame(animate);
+  context.fillStyle = "black";
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  background.update();
+  shop.update();
+  player.update();
+  // player2.update();
+
+  player.velocity.x = 0;
+  player2.velocity.x = 0;
+
+  // player left and right movement & animation
+  if (keys.a.pressed && player.lastKey === "a") {
+    // move to the left
+    player.velocity.x = -3.5;
+    // running animation for player 1
+    player.spriteSwap("run");
+  } else if (keys.d.pressed && player.lastKey === "d") {
+    // move to the right
+    player.velocity.x = 3.5;
+    // running animation for player 1
+    player.spriteSwap("run");
+  } else {
+    player.spriteSwap("idle");
+  }
+
+  // player jump movement & animation
+  if (player.velocity.y < 0) {
+    player.spriteSwap("jump");
+  } else if (player.velocity.y > 0) {
+    player.spriteSwap("fall");
+  }
+
+  // player 2
+  player2.velocity.x = 0;
+
+  if (keys.ArrowLeft.pressed && player2.lastKey === "ArrowLeft") {
+    player2.velocity.x = -2.5;
+  } else if (keys.ArrowRight.pressed && player2.lastKey === "ArrowRight") {
+    player2.velocity.x = 2.5;
+  }
+
+  // If player1 attacks and the attack collides with player2's hurtbox
+  // do [insert task]
+  if (
+    hurtboxCollision({
+      rect1: player,
+      rect2: player2,
+    }) &&
+    player.isAttacking
+  ) {
+    player.isAttacking = false;
+    player2.health -= 20;
+    document.querySelector("#player2HP").style.width = player2.health + "%";
+  }
+
+  // If player2 attacks and the attack collides with player1's hurtbox
+  // do [insert task]
+  if (
+    hurtboxCollision({
+      rect1: player2,
+      rect2: player,
+    }) &&
+    player2.isAttacking
+  ) {
+    player2.isAttacking = false;
+    player.health -= 20;
+    document.querySelector("#playerHP").style.width = player.health + "%";
+  }
+
+  // If the HP of either player reaches zero, end the game
+  if (player.health <= 0 || player2.health <= 0) {
     determineWinner({ player, player2, timerID });
   }
 }

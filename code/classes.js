@@ -1,3 +1,5 @@
+// "use strict";
+
 class Sprite {
   constructor({
     position,
@@ -26,7 +28,7 @@ class Sprite {
       (this.image.width / this.framesMax) * this.framesCurrent,
       0,
 
-      //the framesMax variable to divide the sprite
+      //the framesMax variable is used to divide the sprite
       // by how many frames are used for the sprite
       // this is to prevent seeing each frame of the animation
       // on the screen
@@ -39,6 +41,22 @@ class Sprite {
       (this.image.width / this.framesMax) * this.scale,
       this.image.height * this.scale
     );
+
+    // The Hurtbox
+    // context.fillStyle = "red";
+    // context.fillStyle = this.color;
+    // context.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+    // hitbox (for attacks)
+    // if (this.isAttacking) {
+    //   context.fillStyle = "green";
+    //   context.fillRect(
+    //     this.hitBox.position.x,
+    //     this.hitBox.position.y,
+    //     this.hitBox.width,
+    //     this.hitBox.height
+    //   );
+    // }
   }
 
   // This method is for animating the sprites
@@ -74,6 +92,7 @@ class Fighter extends Sprite {
     scale = 1,
     framesMax = 1,
     offset = { x: 0, y: 0 },
+    sprites,
   }) {
     super({
       position,
@@ -93,7 +112,12 @@ class Fighter extends Sprite {
     this.framesCurrent = 0;
     this.framesElapsed = 0;
     this.framesHold = 7;
+    this.sprites = sprites;
 
+    for (const sprite in this.sprites) {
+      sprites[sprite].image = new Image();
+      sprites[sprite].image.src = sprites[sprite].imageSrc;
+    }
     //for attacks
     this.hitBox = {
       position: {
@@ -105,24 +129,6 @@ class Fighter extends Sprite {
       height: 50,
     };
   }
-
-  // This method is used to create the hurtbox at the players spawn position
-  // draw() {
-  //   // context.fillStyle = "red";
-  //   context.fillStyle = this.color;
-  //   context.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-  //   // hitbox (for attacks)
-  //   if (this.isAttacking) {
-  //     context.fillStyle = "green";
-  //     context.fillRect(
-  //       this.hitBox.position.x,
-  //       this.hitBox.position.y,
-  //       this.hitBox.width,
-  //       this.hitBox.height
-  //     );
-  //   }
-  // }
 
   // this method is to update the player when movement buttons are pressed
   update() {
@@ -150,5 +156,40 @@ class Fighter extends Sprite {
     setTimeout(() => {
       this.isAttacking = false;
     }, 100);
+  }
+
+  // This method is for swaping the sprites for the players
+  // depending on their state
+  spriteSwap(sprite) {
+    switch (sprite) {
+      case "idle":
+        if (this.image !== this.sprites.idle.image) {
+          this.image = this.sprites.idle.image;
+          this.framesMax = this.sprites.idle.framesMax;
+          this.framesCurrent = 0;
+        }
+        break;
+      case "run":
+        if (this.image !== this.sprites.run.image) {
+          this.image = this.sprites.run.image;
+          this.framesMax = this.sprites.run.framesMax;
+          this.framesCurrent = 0;
+        }
+        break;
+      case "jump":
+        if (this.image !== this.sprites.run.image) {
+          this.image = this.sprites.jump.image;
+          this.framesMax = this.sprites.jump.framesMax;
+          this.framesCurrent = 0;
+        }
+        break;
+      case "fall":
+        if (this.image !== this.sprites.fall.image) {
+          this.image = this.sprites.fall.image;
+          this.framesMax = this.sprites.fall.framesMax;
+          this.framesCurrent = 0;
+        }
+        break;
+    }
   }
 }
