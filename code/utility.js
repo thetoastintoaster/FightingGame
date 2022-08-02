@@ -49,7 +49,7 @@ function animate() {
   background.update();
   shop.update();
   player.update();
-  // player2.update();
+  player2.update();
 
   player.velocity.x = 0;
   player2.velocity.x = 0;
@@ -81,10 +81,19 @@ function animate() {
 
   if (keys.ArrowLeft.pressed && player2.lastKey === "ArrowLeft") {
     player2.velocity.x = -2.5;
+    player2.spriteSwap("run");
   } else if (keys.ArrowRight.pressed && player2.lastKey === "ArrowRight") {
     player2.velocity.x = 2.5;
+    player2.spriteSwap("run");
+  } else {
+    player2.spriteSwap("idle");
   }
-
+  // player jump movement & animation
+  if (player2.velocity.y < 0) {
+    player2.spriteSwap("jump");
+  } else if (player2.velocity.y > 0) {
+    player2.spriteSwap("fall");
+  }
   // If player1 attacks and the attack collides with player2's hurtbox
   // do [insert task]
   if (

@@ -41,22 +41,6 @@ class Sprite {
       (this.image.width / this.framesMax) * this.scale,
       this.image.height * this.scale
     );
-
-    // The Hurtbox
-    // context.fillStyle = "red";
-    // context.fillStyle = this.color;
-    // context.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-    // hitbox (for attacks)
-    // if (this.isAttacking) {
-    //   context.fillStyle = "green";
-    //   context.fillRect(
-    //     this.hitBox.position.x,
-    //     this.hitBox.position.y,
-    //     this.hitBox.width,
-    //     this.hitBox.height
-    //   );
-    // }
   }
 
   // This method is for animating the sprites
@@ -87,6 +71,12 @@ class Fighter extends Sprite {
     position,
     velocity,
     color = "red",
+    hitBox = {
+      offset: {},
+      width: undefined,
+      height: undefined,
+    },
+
     // arguments inherited from Sprite class below
     imageSrc,
     scale = 1,
@@ -124,9 +114,9 @@ class Fighter extends Sprite {
         x: this.position.x,
         y: this.position.y,
       },
-      offset: offset,
-      width: 100,
-      height: 50,
+      offset: hitBox.offset,
+      width: hitBox.width,
+      height: hitBox.height,
     };
   }
 
@@ -134,8 +124,27 @@ class Fighter extends Sprite {
   update() {
     this.draw();
     this.animateFrames();
+
+    // hitboxes
     this.hitBox.position.x = this.position.x + this.hitBox.offset.x;
-    this.hitBox.position.y = this.position.y;
+    this.hitBox.position.y = this.position.y + this.hitBox.offset.y;
+
+    // The Hurtbox
+    // context.fillStyle = "red";
+    // context.fillStyle = this.color;
+    // context.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+    // hitbox (for attacks)
+    if (this.isAttacking) {
+      console.log("here");
+      context.fillStyle = "green";
+      context.fillRect(
+        this.hitBox.position.x,
+        this.hitBox.position.y,
+        this.hitBox.width,
+        this.hitBox.height
+      );
+    }
 
     this.position.x += this.velocity.x;
 
@@ -143,6 +152,7 @@ class Fighter extends Sprite {
     // position.y will have [insert number] pixels added on to it for each frame that is looped over
     this.position.y += this.velocity.y;
 
+    // gravity
     if (this.position.y + this.height + this.velocity.y >= canvas.height - 85) {
       this.velocity.y = 0;
     } else {
@@ -152,6 +162,7 @@ class Fighter extends Sprite {
 
   // this method is to allow player1 to attack at the moment
   attack() {
+    this.spriteSwap("attack");
     this.isAttacking = true;
     setTimeout(() => {
       this.isAttacking = false;
@@ -161,6 +172,13 @@ class Fighter extends Sprite {
   // This method is for swaping the sprites for the players
   // depending on their state
   spriteSwap(sprite) {
+    // This if statement is to prevent the attack
+    // animation from looping indefinitely
+    if (
+      this.image === this.sprites.attack.image &&
+      this.framesCurrent < this.sprites.attack.framesMax - 1
+    )
+      return;
     switch (sprite) {
       case "idle":
         if (this.image !== this.sprites.idle.image) {
@@ -173,6 +191,13 @@ class Fighter extends Sprite {
         if (this.image !== this.sprites.run.image) {
           this.image = this.sprites.run.image;
           this.framesMax = this.sprites.run.framesMax;
+          this.framesCurrent = 0;
+        }
+        break;
+      case "attack":
+        if (this.image !== this.sprites.attack.image) {
+          this.image = this.sprites.attack.image;
+          this.framesMax = this.sprites.attack.framesMax;
           this.framesCurrent = 0;
         }
         break;

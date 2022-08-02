@@ -80,6 +80,19 @@ const player = new Fighter({
       framesMax: 2,
       image: new Image(),
     },
+    attack: {
+      imageSrc: "./assets/samuraiMack/Attack1.png",
+      framesMax: 6,
+      image: new Image(),
+    },
+    hitBox: {
+      offset: {
+        x: 100,
+        y: 50,
+      },
+      width: 100,
+      height: 50,
+    },
   },
 });
 
@@ -96,6 +109,47 @@ const player2 = new Fighter({
   offset: {
     x: -50,
     y: 0,
+  },
+  imageSrc: "./assets/samuraiMack/Idle.png",
+  framesMax: 8,
+  scale: 2.5,
+  offset: {
+    x: 215,
+    y: 157,
+  },
+  sprites: {
+    idle: {
+      imageSrc: "./assets/samuraiMack/Idle.png",
+      framesMax: 8,
+    },
+    run: {
+      imageSrc: "./assets/samuraiMack/Run.png",
+      framesMax: 8,
+      image: new Image(),
+    },
+    jump: {
+      imageSrc: "./assets/samuraiMack/Jump.png",
+      framesMax: 2,
+      image: new Image(),
+    },
+    fall: {
+      imageSrc: "./assets/samuraiMack/Fall.png",
+      framesMax: 2,
+      image: new Image(),
+    },
+    attack: {
+      imageSrc: "./assets/samuraiMack/Attack1.png",
+      framesMax: 6,
+      image: new Image(),
+    },
+    hitBox: {
+      offset: {
+        x: 100,
+        y: 50,
+      },
+      width: 100,
+      height: 50,
+    },
   },
 });
 
