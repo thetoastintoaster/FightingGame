@@ -104,10 +104,6 @@ class Fighter extends Sprite {
     this.framesHold = 7;
     this.sprites = sprites;
 
-    for (const sprite in this.sprites) {
-      sprites[sprite].image = new Image();
-      sprites[sprite].image.src = sprites[sprite].imageSrc;
-    }
     //for attacks
     this.hitBox = {
       position: {
@@ -118,6 +114,11 @@ class Fighter extends Sprite {
       width: hitBox.width,
       height: hitBox.height,
     };
+
+    for (const sprite in this.sprites) {
+      sprites[sprite].image = new Image();
+      sprites[sprite].image.src = sprites[sprite].imageSrc;
+    }
   }
 
   // this method is to update the player when movement buttons are pressed
@@ -135,16 +136,16 @@ class Fighter extends Sprite {
     // context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
     // hitbox (for attacks)
-    if (this.isAttacking) {
-      console.log("here");
-      context.fillStyle = "green";
-      context.fillRect(
-        this.hitBox.position.x,
-        this.hitBox.position.y,
-        this.hitBox.width,
-        this.hitBox.height
-      );
-    }
+    // if (this.isAttacking) {
+    //   console.log(player);
+    //   context.fillStyle = "green";
+    //   context.fillRect(
+    //     this.hitBox.position.x,
+    //     this.hitBox.position.y,
+    //     this.hitBox.width,
+    //     this.hitBox.height
+    //   );
+    // }
 
     this.position.x += this.velocity.x;
 

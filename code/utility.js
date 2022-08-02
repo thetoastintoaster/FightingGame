@@ -46,8 +46,8 @@ function animate() {
   window.requestAnimationFrame(animate);
   context.fillStyle = "black";
   context.fillRect(0, 0, canvas.width, canvas.height);
-  background.update();
   shop.update();
+  background.update();
   player.update();
   player2.update();
 

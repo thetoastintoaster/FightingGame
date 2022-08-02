@@ -26,14 +26,15 @@ const background = new Sprite({
     x: 0,
     y: 0,
   },
-  imageSrc: "./assets/background.png",
+  imageSrc: "./assets/foreground.png",
+  scale: 3.75,
 });
 
 // Extra sprites to compliment the background
 const shop = new Sprite({
   position: {
-    x: 600,
-    y: 128,
+    x: 400,
+    y: 228,
   },
   imageSrc: "./assets/shop.png",
   scale: 2.5,
@@ -85,14 +86,14 @@ const player = new Fighter({
       framesMax: 6,
       image: new Image(),
     },
-    hitBox: {
-      offset: {
-        x: 100,
-        y: 50,
-      },
-      width: 100,
-      height: 50,
+  },
+  hitBox: {
+    offset: {
+      x: 100,
+      y: 50,
     },
+    width: 100,
+    height: 50,
   },
 });
 
@@ -142,14 +143,14 @@ const player2 = new Fighter({
       framesMax: 6,
       image: new Image(),
     },
-    hitBox: {
-      offset: {
-        x: 100,
-        y: 50,
-      },
-      width: 100,
-      height: 50,
+  },
+  hitBox: {
+    offset: {
+      x: 100,
+      y: 50,
     },
+    width: 100,
+    height: 50,
   },
 });
 
