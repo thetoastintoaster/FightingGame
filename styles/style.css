@@ -1,0 +1,82 @@
+/* GUI */
+#inGameGUIContainer {
+  display: inline-block;
+  position: relative;
+}
+#inGameGUI {
+  position: absolute;
+  padding: 20px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+/* PLAYER HEALTH */
+#player1HP {
+  position: absolute;
+  background: blue;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+}
+
+#player2HP {
+  position: absolute;
+  background: blue;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.player1HPContainer {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  height: 30px;
+  width: 100%;
+}
+
+.player2HPContainer {
+  position: relative;
+  height: 30px;
+  width: 100%;
+}
+
+.player2HPBackground {
+  background-color: yellow;
+  height: 30px;
+}
+
+.player1HPBackground {
+  background-color: yellow;
+  height: 30px;
+  width: 100%;
+}
+
+/* TIMER */
+
+#timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: red;
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+}
+
+/* VICTORY, LOSS, OR TIE */
+
+#displayText {
+  /* display: flex; */
+  align-items: center;
+  position: absolute;
+  color: white;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: none;
+}

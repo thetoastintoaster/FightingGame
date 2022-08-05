@@ -1,13 +1,5 @@
 // "use strict";
 
-const canvas = document.querySelector("canvas");
-
-// You need the getContext() method here so you have access to
-// the canvas tags 2d drawing functions
-// You also need it so that the sprites spawn within the canvas
-// and not outside of it (the body element)
-const context = canvas.getContext("2d");
-
 canvas.width = 1280;
 canvas.height = 720;
 
@@ -19,6 +11,22 @@ canvas.height = 720;
 context.fillRect(0, 0, canvas.width, canvas.height);
 
 const gravity = 0.5;
+
+// GAME START
+
+function gameStart() {
+  function intro() {
+    introCredit1.classList.remove("hidden");
+    setTimeout(function () {
+      introCredit1.classList.add("hidden");
+      introCredit2.classList.remove("hidden");
+      setTimeout(function () {
+        introCredit2.classList.add("hidden");
+      }, 5000);
+    }, 5000);
+  }
+  setTimeout(intro, 0);
+}
 
 // Background sprite
 const background = new Sprite({
@@ -56,7 +64,7 @@ const player = new Fighter({
   },
   imageSrc: "./assets/samuraiMack/Idle.png",
   framesMax: 8,
-  scale: 2.5,
+  scale: 3,
   offset: {
     x: 215,
     y: 157,
@@ -113,7 +121,7 @@ const player2 = new Fighter({
   },
   imageSrc: "./assets/samuraiMack/Idle.png",
   framesMax: 8,
-  scale: 2.5,
+  scale: 3,
   offset: {
     x: 215,
     y: 157,
@@ -172,7 +180,9 @@ const keys = {
   },
 };
 
-decreaseTimer();
+// gameStart();
+
+// decreaseTimer();
 
 animate();
 

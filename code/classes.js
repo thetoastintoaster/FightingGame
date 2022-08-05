@@ -136,16 +136,16 @@ class Fighter extends Sprite {
     // context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
     // hitbox (for attacks)
-    // if (this.isAttacking) {
-    //   console.log(player);
-    //   context.fillStyle = "green";
-    //   context.fillRect(
-    //     this.hitBox.position.x,
-    //     this.hitBox.position.y,
-    //     this.hitBox.width,
-    //     this.hitBox.height
-    //   );
-    // }
+    if (this.isAttacking) {
+      console.log(player);
+      context.fillStyle = "green";
+      context.fillRect(
+        this.hitBox.position.x,
+        this.hitBox.position.y,
+        this.hitBox.width,
+        this.hitBox.height
+      );
+    }
 
     this.position.x += this.velocity.x;
 
@@ -161,7 +161,7 @@ class Fighter extends Sprite {
     }
   }
 
-  // this method is to allow player1 to attack at the moment
+  // this method is to allow player1 & player 2 to attack
   attack() {
     this.spriteSwap("attack");
     this.isAttacking = true;

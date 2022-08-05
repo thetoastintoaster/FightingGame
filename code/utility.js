@@ -1,4 +1,12 @@
 // "use strict";
+// GAME START
+
+function gameStart() {
+  function r() {
+    introCredit1.classList.remove("hidden");
+  }
+  setTimeout(r, 500);
+}
 
 // Collision Detection
 function hurtboxCollision({ rect1, rect2 }) {
@@ -44,6 +52,8 @@ function decreaseTimer() {
 
 function animate() {
   window.requestAnimationFrame(animate);
+  // countDownTimer.classList.remove("hidden");
+
   context.fillStyle = "black";
   context.fillRect(0, 0, canvas.width, canvas.height);
   shop.update();
