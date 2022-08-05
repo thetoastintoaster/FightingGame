@@ -12,22 +12,6 @@ context.fillRect(0, 0, canvas.width, canvas.height);
 
 const gravity = 0.5;
 
-// GAME START
-
-function gameStart() {
-  function intro() {
-    introCredit1.classList.remove("hidden");
-    setTimeout(function () {
-      introCredit1.classList.add("hidden");
-      introCredit2.classList.remove("hidden");
-      setTimeout(function () {
-        introCredit2.classList.add("hidden");
-      }, 5000);
-    }, 5000);
-  }
-  setTimeout(intro, 0);
-}
-
 // Background sprite
 const background = new Sprite({
   position: {
@@ -180,12 +164,18 @@ const keys = {
   },
 };
 
-// gameStart();
+// Intro Credits + load main menu
+gameStart();
 
+mainMenuStart.addEventListener("click", function () {
+  mainMenu.classList.add("hidden");
+  // countDownTimer.classList.remove("hidden");
+  fightingGame.classList.remove("hidden");
+  animate();
+});
 // decreaseTimer();
 
-animate();
-
+// Controls
 window.addEventListener("keydown", (event) => {
   switch (event.key) {
     case "d":

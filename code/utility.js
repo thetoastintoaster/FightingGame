@@ -1,12 +1,22 @@
 // "use strict";
-// GAME START
 
+// GAME START
 function gameStart() {
-  function r() {
+  function intro() {
     introCredit1.classList.remove("hidden");
+    setTimeout(function () {
+      introCredit1.classList.add("hidden");
+      introCredit2.classList.remove("hidden");
+      setTimeout(function () {
+        introCredit2.classList.add("hidden");
+        mainMenu.classList.remove("hidden");
+      }, 100);
+    }, 100);
   }
-  setTimeout(r, 500);
+  setTimeout(intro, 0);
 }
+
+//
 
 // Collision Detection
 function hurtboxCollision({ rect1, rect2 }) {

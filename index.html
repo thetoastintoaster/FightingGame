@@ -18,7 +18,10 @@
   <body>
     <img class="introCredit1 hidden" src="credits/Untitled.jpg" />
     <img class="introCredit2 hidden" src="credits/Unbitled.jpg" />
-    <div id="inGameGUIContainer">
+    <div id="gameContainer">
+      <div id="mainMenu" class="hidden">
+        <div class="mainMenuStart">Start</div>
+      </div>
       <div id="inGameGUI">
         <!-- Player 1 HP -->
         <div class="player1HPContainer">
@@ -27,7 +30,7 @@
         </div>
 
         <!-- Timer -->
-        <div id="#timer">10</div>
+        <div id="#timer" class="hidden">10</div>
 
         <!-- Player 2 HP -->
         <div class="player2HPContainer">
@@ -38,7 +41,8 @@
 
       <!-- VICTORY, LOSS, OR TIE -->
       <div id="displayText">Tie</div>
-      <canvas class="game hidden"></canvas>
+      <canvas id="game" class="hidden"></canvas>
+      <div class="background"></div>
     </div>
     <script src="code/variables.js"></script>
     <script src="code/utility.js"></script>

@@ -1,8 +1,17 @@
-/* GUI */
-#inGameGUIContainer {
+/* Game container */
+#gameContainer {
   display: inline-block;
   position: relative;
 }
+
+#g {
+}
+
+/* MAIN MENU */
+.mainMenuStart {
+  font-size: 7rem;
+}
+/* GUI */
 #inGameGUI {
   position: absolute;
   padding: 20px;

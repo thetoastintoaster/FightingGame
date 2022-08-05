@@ -1,6 +1,6 @@
 // "use strict";
 
-// In-Game
+// game
 const canvas = document.querySelector("canvas");
 
 // You need the getContext() method here so you have access to
@@ -12,4 +12,8 @@ const context = canvas.getContext("2d");
 // Intro credits
 const introCredit1 = document.querySelector(".introCredit1");
 const introCredit2 = document.querySelector(".introCredit2");
+//
+const mainMenuStart = document.querySelector(".mainMenuStart");
+// In-game
 const countDownTimer = document.querySelector("#timer");
+const fightingGame = document.querySelector("#game");
