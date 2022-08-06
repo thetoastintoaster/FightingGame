@@ -1,6 +1,7 @@
 // "use strict";
 
 // game
+const gameContainer = document.querySelector("#gameContainer");
 const canvas = document.querySelector("canvas");
 
 // You need the getContext() method here so you have access to
@@ -15,5 +16,6 @@ const introCredit2 = document.querySelector(".introCredit2");
 //
 const mainMenuStart = document.querySelector(".mainMenuStart");
 // In-game
+const inGameGUI = document.querySelector(".inGameGUI");
 const countDownTimer = document.querySelector("#timer");
 const fightingGame = document.querySelector("#game");

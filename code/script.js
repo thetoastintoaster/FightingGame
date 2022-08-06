@@ -1,5 +1,7 @@
 // "use strict";
 
+gameContainer.width = 1280;
+gameContainer.height = 720;
 canvas.width = 1280;
 canvas.height = 720;
 
@@ -170,6 +172,8 @@ gameStart();
 mainMenuStart.addEventListener("click", function () {
   mainMenu.classList.add("hidden");
   // countDownTimer.classList.remove("hidden");
+  inGameGUI.classList.remove("hidden");
+
   fightingGame.classList.remove("hidden");
   animate();
 });

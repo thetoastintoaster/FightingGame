@@ -2,13 +2,18 @@
 #gameContainer {
   display: inline-block;
   position: relative;
+  background-color: #000;
+  width: 1280px;
+  height: 720px;
 }
 
-#g {
+#game {
+  /* position: absolute; */
 }
 
 /* MAIN MENU */
 .mainMenuStart {
+  color: #fff;
   font-size: 7rem;
 }
 /* GUI */
