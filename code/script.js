@@ -1,7 +1,7 @@
 // "use strict";
 
-// gameContainer.width = 1280;
-// gameContainer.height = 720;
+gameContainer.width = 1280;
+gameContainer.height = 720;
 canvas.width = 1280;
 canvas.height = 720;
 
